@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+venv/
+.env
+
+# Java
+*.class
+target/
+*.jar
+*.war
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Database
+*.db
+
+# Models (large binary files)
+models/*.pkl
+models/*.joblib
+models/*.h5
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Dataset (large files)
+dataset/

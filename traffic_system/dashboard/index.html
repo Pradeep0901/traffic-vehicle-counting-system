@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Real-time AI Traffic Vehicle Counting and Classification Dashboard">
+    <title>Traffic AI Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="header-left">
+            <div class="logo-icon">🚦</div>
+            <div>
+                <h1>Traffic AI Dashboard</h1>
+                <p class="subtitle">Real-time Vehicle Counting & Classification</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <span class="badge" id="mode-badge">SVM/MOG2</span>
+            <span class="badge badge-green" id="status-badge">● LIVE</span>
+            <span class="elapsed" id="elapsed">0s</span>
+        </div>
+    </header>
+
+    <!-- Main Grid -->
+    <main id="dashboard-grid">
+        <!-- Video Panel -->
+        <section class="panel video-panel" id="video-section">
+            <div class="panel-header">
+                <h2>📹 Live Video Feed</h2>
+                <div class="controls">
+                    <button id="btn-svm" class="btn btn-primary active" onclick="setMode('svm')">SVM Mode</button>
+                    <button id="btn-yolo" class="btn btn-orange" onclick="setMode('yolo')">YOLO Mode</button>
+                    <label class="btn btn-purple" for="video-upload">📁 Upload</label>
+                    <input type="file" id="video-upload" accept="video/*" hidden onchange="uploadVideo(this)">
+                    <button class="btn btn-red" onclick="resetCounters()">↺ Reset</button>
+                </div>
+            </div>
+            <div class="video-container">
+                <img id="video-feed" src="http://localhost:5000/video_feed" alt="Video Feed"
+                     onerror="this.alt='⚠ Cannot connect to backend at localhost:5000'">
+            </div>
+        </section>
+
+        <!-- Stats Cards -->
+        <section class="stats-grid" id="stats-section">
+            <div class="stat-card total" id="card-total">
+                <div class="stat-icon">🚗</div>
+                <div class="stat-value" id="stat-total">0</div>
+                <div class="stat-label">Total Vehicles</div>
+            </div>
+            <div class="stat-card car" id="card-car">
+                <div class="stat-icon">🚙</div>
+                <div class="stat-value" id="stat-car">0</div>
+                <div class="stat-label">Cars</div>
+            </div>
+            <div class="stat-card bike" id="card-bike">
+                <div class="stat-icon">🏍️</div>
+                <div class="stat-value" id="stat-bike">0</div>
+                <div class="stat-label">Bikes</div>
+            </div>
+            <div class="stat-card bus" id="card-bus">
+                <div class="stat-icon">🚌</div>
+                <div class="stat-value" id="stat-bus">0</div>
+                <div class="stat-label">Buses</div>
+            </div>
+            <div class="stat-card truck" id="card-truck">
+                <div class="stat-icon">🚛</div>
+                <div class="stat-value" id="stat-truck">0</div>
+                <div class="stat-label">Trucks</div>
+            </div>
+        </section>
+
+        <!-- Density + Chart Row -->
+        <section class="bottom-row">
+            <div class="panel density-panel" id="density-section">
+                <h2>🔴 Traffic Density</h2>
+                <div class="density-bar-container">
+                    <div class="density-bar" id="density-bar">
+                        <span id="density-text">LOW</span>
+                    </div>
+                </div>
+                <div class="density-labels">
+                    <span>Low</span><span>Medium</span><span>High</span>
+                </div>
+            </div>
+            <div class="panel chart-panel" id="chart-section">
+                <h2>📊 Vehicle Distribution</h2>
+                <canvas id="chart-canvas" width="400" height="220"></canvas>
+            </div>
+            <div class="panel history-panel" id="history-section">
+                <h2>📋 Recent Vehicles</h2>
+                <div class="table-wrap">
+                    <table id="vehicle-table">
+                        <thead><tr><th>ID</th><th>Type</th><th>Speed</th><th>Lane</th><th>Time</th></tr></thead>
+                        <tbody id="vehicle-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+opencv-python
+opencv-contrib-python
+numpy
+scikit-learn
+Flask
+flask-cors
+imutils
+ultralytics
